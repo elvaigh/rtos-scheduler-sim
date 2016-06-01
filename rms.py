@@ -1,14 +1,3 @@
-'''struct
-
-void RMS( int period[], int runTime[], int process[]){
-  for(int time=0; time<120; time=time+5){
-    //determine the process to be scheduled
-
-    //determine highest priority based on rate
-    //run it
-  }//for
-}//RMS
-'''
 import copy
 
 class Schedule:
@@ -31,27 +20,21 @@ def RMS(list_processes):
     print "no processes to be ran\n"
     return
   for time in range(0,120,5):
-    print 'time ',time+5
+    print 'time ',time+5,':'
 
     #determine the process to be scheduled
     for i in list_processes:
       if time==5:
+        #append will happen when time is 0
+        active[0].runTime=active[0].runTime+5
+      elif time%(i.period)==0:
         active.append(i)
-        print 'here'
-        if active:
-          active[0].runTime=active[0].runTime+5
-      elif (time)%(i.period)== 0:
-        for o in active:
-          if o.name != i.name:
-              active.append(i)
         active[1:].sort(key=getPriority, reverse=True)
-        if active:
-          active[0].runTime=active[0].runTime+5
-    if len(active)>0:
-        print active, '\n'
+        active[0].runTime=active[0].runTime+5
+
     #determine highest priority based on rate
     for j in active:
-      if active[0].runTime>0:
+      if (active[0].runTime>0):
         active[0].runTime=active[0].runTime-5
       if active[0].runTime == 0:
     #    print 'pop'
@@ -60,8 +43,8 @@ def RMS(list_processes):
             active[0].runTime= k.runTime
         active.pop(0)
 
-    #if len(active)>0:
-    #    print active, '\n'
+    if len(active)>0:
+        print active, '\n'
 
 processes=[]
 
