@@ -1,5 +1,5 @@
 # processor-rms
-a simple Rate Monotonic Scheduling (RMS) 
+a simple Rate Monotonic Scheduling (RMS). This is an assignment for my Operating Systems for Embedded Applications
 
   **Issues:**
   
