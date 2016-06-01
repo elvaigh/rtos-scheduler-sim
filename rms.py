@@ -5,7 +5,7 @@ class Schedule:
     self.name = name
     self.period = period
     self.runTime = runTime
-    self.priority=1000/period
+    self.priority=1000/period #1000 since period is in milisecond
   def __repr__(self):
     return '{}: {} {} {}'.format(self.name, self.period, self.runTime, self.priority)
 
@@ -29,10 +29,11 @@ def RMS(list_processes):
         active[0].runTime=active[0].runTime+5
       elif time%(i.period)==0:
         active.append(i)
+        #determine highest priority based on rate besides the one currently working
         active[1:].sort(key=getPriority, reverse=True)
         active[0].runTime=active[0].runTime+5
 
-    #determine highest priority based on rate
+    #running
     for j in active:
       if (active[0].runTime>0):
         active[0].runTime=active[0].runTime-5
@@ -44,6 +45,7 @@ def RMS(list_processes):
         active.pop(0)
 
     if len(active)>0:
+        #ran and show queue
         print active, '\n'
 
 processes=[]
