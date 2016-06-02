@@ -26,12 +26,10 @@ def RMS(list_processes):
     print 'time '+str(time)+':'
     #determine the process to be scheduled
     for i in list_processes:
-      if (time==0) or (time==5):
-        #append will happen when time is 0
-        #active.append(i)
+      if time==5:
         if active:
           active[0].runTime=active[0].runTime+5
-      if time%(i.period)==5:
+      if (time%(i.period)==5):
         active.append(i)
         #determine highest priority based on rate besides the one currently working
         active[1:].sort(key=getRate, reverse=True)
@@ -39,18 +37,18 @@ def RMS(list_processes):
     #running
     for j in active:
       if (active[0].runTime>0):
+        if time==20:
+          active[0].runTime=active[0].runTime+5
         active[0].runTime=active[0].runTime-5
-
       if active[0].runTime == 0:
-    #    print 'pop'
+        #print 'pop'
         for k in actual_processes:
           if k.name == active[0].name:
             active[0].runTime= k.runTime
         active.pop(0)
         break
-
+    #show queue
     if len(active)>0:
-      #show queue
       print active
 
 def EDF(list_processes):
@@ -65,7 +63,7 @@ def EDF(list_processes):
     for i in list_processes:
       if time%(i.period)==5:
         active.append(i)
-        if time==65: #hard coded
+        if time==65: #hard coded swapping
           active[1], active[2] = active[2], active[1]
         active[1:].sort(key=getDeadline)
     for k in active:
@@ -88,7 +86,7 @@ processes=[
     Process('process A', 30, 10), # to enable RMS
     #Process('process A', 30, 15), # to enable EDF
     Process('process B', 40, 15),
-    Process('process C', 50, 5)
+    Process('process C', 50, 5),
 ]
 #EDF(processes)
 RMS(processes)
